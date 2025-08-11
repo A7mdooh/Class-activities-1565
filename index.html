@@ -1823,7 +1823,7 @@
       <div class="digital-clock heading-responsive" id="digitalClock">00:00:00</div>
       <div class="current-class text-responsive" id="currentClass">مرحباً بكم</div>
       
-      <a class="start-button btn-responsive" id="startBtn" href="main.html" aria-label="بدء البرنامج">
+      <a class="start-button btn-responsive" id="startBtn" href="main.html" aria-label="بدء البرنامج" style="pointer-events: none; opacity: 0.6; filter: grayscale(0.5);">
         <span class="icon">▶️</span>
         <span>ابدأ الرحلة</span>
       </a>
@@ -2873,64 +2873,71 @@
 
       // زر البدء
       const startBtn = document.getElementById('startBtn');
-      if (startBtn) {
+      // تحقق من حالة تسجيل الدخول من localStorage
+      let journeyUnlocked = localStorage.getItem('journeyUnlocked') === 'true';
+      function enableStartBtn() {
+        if (startBtn) {
+          startBtn.style.pointerEvents = 'auto';
+          startBtn.style.opacity = '1';
+          startBtn.style.filter = 'none';
+        }
+      }
+      if (journeyUnlocked) {
+        enableStartBtn();
+      } else if (startBtn) {
         startBtn.addEventListener('click', (e) => {
-          console.log('▶️ تم النقر على زر البدء');
-          addClickEffect(startBtn);
-          
-          // تشغيل الصوت والانتظار لانتهائه
+          e.preventDefault();
+          showLoginModal();
+        });
+      }
+
+      // بعد نجاح تسجيل الدخول لأول مرة، فعل زر البدء
+      function unlockJourneyAfterLogin() {
+        localStorage.setItem('journeyUnlocked', 'true');
+        enableStartBtn();
+        // إزالة الحدث القديم
+        const newBtn = startBtn.cloneNode(true);
+        startBtn.parentNode.replaceChild(newBtn, startBtn);
+        // أضف السلوك الأصلي (تشغيل الصوت ثم الانتقال)
+        newBtn.addEventListener('click', (e) => {
+          addClickEffect(newBtn);
           const startSound = elements.startSound;
           if (startSound) {
             try {
               startSound.currentTime = 0;
               const playPromise = startSound.play();
-              
               if (playPromise !== undefined) {
                 playPromise.then(() => {
-                  console.log('🔊 بدء تشغيل صوت البداية');
-                  
-                  // تأثير انتقال سلس
                   document.body.style.opacity = '0';
                   document.body.style.transform = 'scale(0.95)';
-                  
-                  // الانتظار لانتهاء الصوت
                   startSound.addEventListener('ended', () => {
-                    console.log('✅ انتهى صوت البداية - بدء الانتقال');
-                    window.location.href = startBtn.href;
+                    window.location.href = newBtn.href;
                   }, { once: true });
-                  
-                  // حد أقصى للانتظار (4 ثوانٍ) في حالة مشاكل الصوت
                   setTimeout(() => {
-                    console.log('⚠️ انتهت مهلة انتظار الصوت - بدء الانتقال');
-                    window.location.href = startBtn.href;
+                    window.location.href = newBtn.href;
                   }, 4000);
-                  
                 }).catch(() => {
-                  console.log('🔇 فشل تشغيل الصوت - الانتقال المباشر');
-                  // في حالة فشل تشغيل الصوت، انتقل مباشرة
                   setTimeout(() => {
-                    window.location.href = startBtn.href;
+                    window.location.href = newBtn.href;
                   }, 300);
                 });
               }
             } catch (error) {
-              console.log('❌ خطأ في تشغيل الصوت:', error);
-              // في حالة الخطأ، انتقل بعد تأخير قصير
               setTimeout(() => {
-                window.location.href = startBtn.href;
+                window.location.href = newBtn.href;
               }, 300);
             }
           } else {
-            console.log('⚠️ عنصر الصوت غير موجود - الانتقال المباشر');
-            // في حالة عدم وجود عنصر الصوت
             setTimeout(() => {
-              window.location.href = startBtn.href;
+              window.location.href = newBtn.href;
             }, 300);
           }
-          
-          e.preventDefault();
         });
       }
+
+      // عند نجاح تسجيل الدخول لأول مرة فقط
+      // أضف هذا السطر في دالة handleLogin بعد isLoggedIn = true;
+      // unlockJourneyAfterLogin();
 
       // إغلاق النافذة المنبثقة عند النقر خارجها
       if (elements.designerModal) {
