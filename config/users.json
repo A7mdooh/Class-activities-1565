@@ -24,9 +24,9 @@
       "id": "admin_002",
       "username": "ahmed",
       "password": "Ahmed@2024",
-      "fullName": "الأستاذ أحمد بن عبدالله الضامري",
+      "fullName": "الأستاذ أحمد   ",
       "role": "super_admin",
-      "email": "Ahm7d@moe.om",
+      "email": "xd@moe.om",
       "permissions": [
         "system_settings",
         "user_management",
@@ -50,4 +50,5 @@
     "passwordMinLength": 6
   }
 }
+
 
