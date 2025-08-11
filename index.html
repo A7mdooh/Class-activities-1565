@@ -554,27 +554,28 @@
 
     /* تصميم نافذة تسجيل الدخول الاحترافية */
     .login-modal {
-  max-width: 400px !important;
-  max-height: 90vh;
+  max-width: 340px !important;
+  min-width: 260px;
+  max-height: 85vh;
   overflow-y: auto;
-  background: rgba(255,255,255,0.95);
-  border-radius: 32px;
-  box-shadow: 0 8px 40px 0 rgba(0,121,107,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.10);
-  border: 1.5px solid rgba(0,121,107,0.10);
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.98);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px 0 rgba(0,121,107,0.13), 0 1.5px 8px 0 rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,121,107,0.08);
+  backdrop-filter: blur(8px);
   position: relative;
-  padding-top: 48px;
-  margin-top: 32px;
-  margin-bottom: 32px;
+  padding-top: 36px;
+  margin-top: 18px;
+  margin-bottom: 18px;
     }
 
     .login-form {
-      padding: var(--spacing-lg);
-      text-align: center;
+  padding: 18px 14px 14px 14px;
+  text-align: center;
     }
 
     .login-header {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 18px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -582,37 +583,37 @@
     }
 
     .login-icon {
-  font-size: 3.5rem;
-  margin-bottom: var(--spacing-md);
+  font-size: 2.2rem;
+  margin-bottom: 8px;
   color: var(--primary-color);
   animation: pulse 2s ease-in-out infinite;
   background: linear-gradient(135deg, #e0f7fa 60%, #b2dfdb 100%);
   border-radius: 50%;
-  box-shadow: 0 2px 12px rgba(0,121,107,0.10);
-  padding: 18px;
-  border: 2px solid #fff;
+  box-shadow: 0 1px 6px rgba(0,121,107,0.10);
+  padding: 10px;
+  border: 1px solid #fff;
   position: absolute;
-  top: -56px;
+  top: -32px;
   left: 50%;
   transform: translateX(-50%);
     }
 
     .login-title {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: var(--spacing-sm);
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 8px rgba(0,121,107,0.08);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 4px rgba(0,121,107,0.06);
     }
 
     .login-subtitle {
   color: var(--text-secondary);
-  font-size: 1rem;
-  margin-bottom: var(--spacing-lg);
-  background: rgba(0,121,107,0.04);
-  border-radius: 8px;
-  padding: 6px 0;
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+  background: rgba(0,121,107,0.03);
+  border-radius: 6px;
+  padding: 4px 0;
   font-weight: 500;
     }
 
